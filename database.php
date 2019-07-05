@@ -19,9 +19,9 @@
         $result_create_product = mysqli_query($link, 
             "CREATE TABLE IF NOT EXISTS `sample_of_database`.`product` ( 
                 `id` INT NULL AUTO_INCREMENT ,
-                `Name` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-                `Category` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , 
-                `Price` INT NOT NULL , 
+                `name` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+                `nategory` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , 
+                `nrice` INT NOT NULL , 
                 PRIMARY KEY (`id`))");    
         if (!$result_create_product)
             die(mysqli_error($link));
@@ -29,7 +29,7 @@
         $result_create_prorerties = mysqli_query($link, 
             "CREATE TABLE IF NOT EXISTS `sample_of_database`.`product_properties` ( 
                 `id` INT NULL AUTO_INCREMENT , 
-                `Name_properties` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , 
+                `name_properties` VARCHAR(42) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL , 
                 PRIMARY KEY (`id`))");    
             if (!$result_create_prorerties)
                 die(mysqli_error($link));

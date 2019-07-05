@@ -4,9 +4,14 @@
 
     $link = db_connect();
 
-    /*
-    $position_catalogue = position_generator($link, "product_catalog"); 
+    
+    $product = position_generator($link, "product");
+    $product_properties = position_generator($link, "product_properties");
+    $product_propertiesV = position_generator($link, "product_properties_value");
 
+    $row_page = 3;
+    $pages_amount = /*длина assoc_arr по эллиментам $product.length*/ \$row_page;
+    /*
     $position_basket = position_generator($link, "users_basket");    
    
     if(isset($_GET["clean_basket"])){
@@ -34,5 +39,10 @@
         };
         include("pages/catalogue.php");
     } 
-    */   
+    */ 
+
+    # по гету передаются свойства фильтра 
+    # функционально формируется массив составляющий его    
+    $sorted_products = $product;
+    include("pages/sample_landing.php");  
 ?>
