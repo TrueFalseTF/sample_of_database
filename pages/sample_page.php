@@ -9,28 +9,53 @@
 <body>    
     <table class="table product_table">
         <caption>Выборка товаров по свойствам</caption>
-        <form action="./index.php" method="get">
-            <input type=""> <!-- форма выбора и кнопка отправки -->
-        </form>
+        
+        <tr>
+            <?php $colsAmount = spanValue($length_product_properties);
+                function spanValue($length_product_properties) {
+                    return (string)$span = 4 + $length_product_properties; }; ?>
+            <th colspan=<?=$colsAmount?>>            
+                <form action="./index.php" method="get">        
+
+                    <!--  #цикл из свойств и значений -->
+                    <p><input type="submit" value="Отфильтровать">
+                        <?php foreach($product_properties as $properties): ?>                         
+                            <select size="1" name="hero[]">
+                                <option >Выберите <?=$properties["name_properties"]?></option>
+                                <?php foreach($product_propertiesV_originalit  as $propertiesV_originalit): ?>
+                                    <?php if ($properties["id"] === $propertiesV_originalit["id_properties"]) :?>
+                                        <option value="<?=(string)$propertiesV_originalit["id_properties"]?>"><?=$propertiesV_originalit["value"]?></option>
+                                    <?php endif; ?>
+                                <?php endforeach;?>
+                            </select>
+                        <?php endforeach;?>
+                    </p>
+                </form>
+            </th>           
+        </tr>
+        
+        
+        
         <tr>
             <th>№</th><th>Продукт</th><th>Категория</th><th>Цена</th>
             <?php foreach($product_properties as $cols): ?><th><?=$cols["name_properties"]?></th><?php endforeach;?>
         </tr>
+        
 
         <!-- цикл ограничен допустимым количеством строк на странице -->
         <?php $pop = 0; foreach($sorted_products as $row): ?>
             <tr id="tr_<?=$row["id"]?>">
                 <th><?=$row["id"]?></th>
 
-                <th><?=$row["price"]?></th>
+                <th><?=$row["name"]?></th>
 
                 <th><?=$row["category"]?></th>                
 
-                <th><?=$row["amount_product"]?></th>
+                <th><?=$row["price"]?></th>
                 <?php 
 
                 #формирование массива СВОЙСТВ ТОВАРОВ строки               
-                foreach($product_propertiesV as $ЗНАЧЕНИЕ_СВОЙСТВА): ?><th><?=$ЗНАЧЕНИЕ_СВОЙСТВА?></th><?php endforeach;?>
+                #foreach($product_propertiesV as $ЗНАЧЕНИЕ_СВОЙСТВА): ?><th><?php#$ЗНАЧЕНИЕ_СВОЙСТВА?></th><?php #endforeach;?>
             </tr>
         <?php /* 
             if($row["id"] > $pop) {

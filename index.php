@@ -2,15 +2,21 @@
     require_once("function.php");
     require_once("database.php");
 
-    $link = db_connect();
+    $link = db_connect();   
 
     
-    $product = position_generator($link, "product");
-    $product_properties = position_generator($link, "product_properties");
-    $product_propertiesV = position_generator($link, "product_properties_value");
+    $product = position_generator($link, "product", false);
+    $product_properties = position_generator($link, "product_properties", false);
+    $product_propertiesV = position_generator($link, "product_properties_value", false);
+    $product_propertiesV_originalit = position_generator($link, "product_properties_value", true, "value");
+    
+
+    $length_product_properties = count($product_properties);
+    $length_product = count($product);
 
     $row_page = 3;
-    $pages_amount = /*длина assoc_arr по эллиментам $product.length*/ \$row_page;
+    
+    $pages_amount = $length_product / $row_page;
     /*
     $position_basket = position_generator($link, "users_basket");    
    
@@ -44,5 +50,13 @@
     # по гету передаются свойства фильтра 
     # функционально формируется массив составляющий его    
     $sorted_products = $product;
-    include("pages/sample_landing.php");  
+    if(isset($_GET["_"])){
+        $Res_product = res_sorted($product);
+        $Res_product_properties =  res_sorted($product_properties);
+        $Res_product_propertiesV =  res_sorted($product_propertiesV);
+        $Res_product_propertiesV_originalit = res_sorted($product_propertiesV_originalit);
+        changing_position_basket($link, $_GET["id"], $_GET["sign"]);
+        include("pages/sample_page.php");
+    };   
+    include("pages/sample_page.php");
 ?>

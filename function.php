@@ -1,7 +1,11 @@
 <?php
-    function position_generator($link, $table) {
+    function position_generator($link, $table, $originality = false, $column = false) {
 
-        $query = "SELECT * FROM ".$table;
+        if($originality === true) {
+            $query = "SELECT DISTINCT ".$column." FROM ".$table;
+        } else if($originality == false){
+            $query = "SELECT * FROM ".$table;
+        }        
         $result = mysqli_query($link, $query);
 
         if (!$result)
@@ -17,6 +21,23 @@
         }
 
         return $position;
+    }
+
+    function join_properties($link) {
+
+        $result_del = mysqli_query($link, 
+            "DELETE FROM `product_properties_value`");    
+        if (!$result_del)
+            die(mysqli_error($link));
+
+        $result_join = mysqli_query($link, 
+            "INSERT INTO `product_properties_value` (`id_product`,`id_properties`)
+            SELECT `product`.`id`, `product_properties`.`id` 
+            FROM `product`
+            JOIN `product_properties`          
+            ");    
+        if (!$result_join)
+            die(mysqli_error($link));
     }
 
     function changing_position_basket($link, $changing_position_id, $changing_position_sign) {
@@ -208,5 +229,9 @@
             "UPDATE product_catalog SET amount_product = 0 WHERE amount_product > 0");    
         if (!$result_update_catalog)
             die(mysqli_error($link));
+    };
+
+    function res_sorted($arr_position) {
+
     };
 ?>
