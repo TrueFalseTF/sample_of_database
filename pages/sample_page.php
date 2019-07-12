@@ -22,8 +22,9 @@
                         <?php foreach($product_properties as $properties): ?>                         
                             <select size="1" name="hero[]">
                                 <option >Выберите <?=$properties["name_properties"]?></option>
-                                <?php foreach($product_propertiesV_originalit  as $propertiesV_originalit): ?>
+                                <?php foreach($product_propertiesV_originalit  as $propertiesV_originalit): ?>                                    
                                     <?php if ($properties["id"] === $propertiesV_originalit["id_properties"]) :?>
+                                        <?php if ( is_null($propertiesV_originalit["value"]) ) continue; ?>
                                         <option value="<?=(string)$propertiesV_originalit["id_properties"]?>"><?=$propertiesV_originalit["value"]?></option>
                                     <?php endif; ?>
                                 <?php endforeach;?>
@@ -52,10 +53,14 @@
                 <th><?=$row["category"]?></th>                
 
                 <th><?=$row["price"]?></th>
-                <?php 
 
-                #формирование массива СВОЙСТВ ТОВАРОВ строки               
-                #foreach($product_propertiesV as $ЗНАЧЕНИЕ_СВОЙСТВА): ?><th><?php#$ЗНАЧЕНИЕ_СВОЙСТВА?></th><?php #endforeach;?>
+                <?php foreach($product_properties as $properties): ?>
+                    <?php foreach($product_propertiesV as $propertiesV): ?>
+                        <?php if ($row["id"] == $propertiesV["id_product"] && $properties["id"] == $propertiesV["id_properties"]): ?>
+                            <th><?=$propertiesV["value"]?></th>
+                        <?php endif; ?>                        
+                    <?php endforeach;?>
+                <?php endforeach;?>
             </tr>
         <?php /* 
             if($row["id"] > $pop) {

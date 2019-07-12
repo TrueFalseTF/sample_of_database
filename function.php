@@ -1,8 +1,16 @@
 <?php
-    function position_generator($link, $table, $originality = false, $column = false) {
+    function position_generator($link, $table, $originality = false, ...$arr_column) {
 
         if($originality === true) {
-            $query = "SELECT DISTINCT ".$column." FROM ".$table;
+            $columns = NULL;
+            
+            foreach ($arr_column as $column){
+                if (!isset($columns)) {
+                    $columns = "`".$column."`";
+                };
+                $columns = $columns.", `".$column."`"; 
+            };                
+            $query = "SELECT DISTINCT ".$columns." FROM ".$table;
         } else if($originality == false){
             $query = "SELECT * FROM ".$table;
         }        
@@ -231,7 +239,18 @@
             die(mysqli_error($link));
     };
 
-    function res_sorted($arr_position) {
+    function res_sorted($arr_products, $arr_product_propertiesV, $arr_Get) {
 
+        #Перебирает ключи и значения 
+
+        
+        foreach ($arr_product_propertiesV as $propertieV) {
+            if ($propertieV[]) {            
+                    #удаление $arr_products["id"];
+                }
+            }
+        }
+
+        return $Res_product;
     };
 ?>

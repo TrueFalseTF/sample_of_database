@@ -8,7 +8,7 @@
     $product = position_generator($link, "product", false);
     $product_properties = position_generator($link, "product_properties", false);
     $product_propertiesV = position_generator($link, "product_properties_value", false);
-    $product_propertiesV_originalit = position_generator($link, "product_properties_value", true, "value");
+    $product_propertiesV_originalit = position_generator($link, "product_properties_value", true, "value", "id_properties");
     
 
     $length_product_properties = count($product_properties);
@@ -51,11 +51,8 @@
     # функционально формируется массив составляющий его    
     $sorted_products = $product;
     if(isset($_GET["_"])){
-        $Res_product = res_sorted($product);
-        $Res_product_properties =  res_sorted($product_properties);
-        $Res_product_propertiesV =  res_sorted($product_propertiesV);
-        $Res_product_propertiesV_originalit = res_sorted($product_propertiesV_originalit);
-        changing_position_basket($link, $_GET["id"], $_GET["sign"]);
+        $Res_product = res_sorted($product, $product_propertiesV, $_GET);        
+             
         include("pages/sample_page.php");
     };   
     include("pages/sample_page.php");
