@@ -239,14 +239,22 @@
             die(mysqli_error($link));
     };
 
-    function res_sorted($arr_products, $arr_product_propertiesV, $arr_Get) {
+    function res_sorted($arr_products, $arr_product_properties, $arr_product_propertiesV, $arr_POST) {
 
         #Перебирает ключи и значения 
 
+        foreach ($arr_product_properties as $product_properties) {
         
-        foreach ($arr_product_propertiesV as $propertieV) {
-            if ($propertieV[]) {            
-                    #удаление $arr_products["id"];
+            foreach ($arr_product_propertiesV as $propertieV) {
+                if ($arr_POST[$product_properties["name_properties"]] == $propertieV[$product_properties["name_properties"]]) {            
+                    $exist_product = TRUE;              
+                }
+                if(isset($exist_product) == FALSE ) {                
+                    foreach ($arr_products as $key => $product) {
+                        if($propertieV["id_product"] == $product["id"]) {
+                            unset($arr_products[$key]);
+                        }
+                    }
                 }
             }
         }

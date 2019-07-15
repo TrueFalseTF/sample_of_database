@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./pages/css/styles.css">    
 </head>
-<body>    
+<body>
+    <a href="./index.php"><h4 class="h4">Главная</h4></a>  
     <table class="table product_table">
         <caption>Выборка товаров по свойствам</caption>
         
@@ -15,17 +16,17 @@
                 function spanValue($length_product_properties) {
                     return (string)$span = 4 + $length_product_properties; }; ?>
             <th colspan=<?=$colsAmount?>>            
-                <form action="./index.php" method="get">        
+                <form action="./index.php?sorted" method="post">        
 
                     <!--  #цикл из свойств и значений -->
                     <p><input type="submit" value="Отфильтровать">
-                        <?php foreach($product_properties as $properties): ?>                         
-                            <select size="1" name="hero[]">
-                                <option >Выберите <?=$properties["name_properties"]?></option>
+                        <?php foreach($product_properties as $properties): ?>                                                                          
+                            <select size="1" name=<?=$properties["name_properties"]?>>
+                                <option>Выберите <?=$properties["name_properties"]?></option>
                                 <?php foreach($product_propertiesV_originalit  as $propertiesV_originalit): ?>                                    
                                     <?php if ($properties["id"] === $propertiesV_originalit["id_properties"]) :?>
                                         <?php if ( is_null($propertiesV_originalit["value"]) ) continue; ?>
-                                        <option value="<?=(string)$propertiesV_originalit["id_properties"]?>"><?=$propertiesV_originalit["value"]?></option>
+                                        <option value=<?=$propertiesV_originalit["value"]?>><?=$propertiesV_originalit["value"]?></option>
                                     <?php endif; ?>
                                 <?php endforeach;?>
                             </select>

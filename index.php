@@ -50,10 +50,9 @@
     # по гету передаются свойства фильтра 
     # функционально формируется массив составляющий его    
     $sorted_products = $product;
-    if(isset($_GET["_"])){
-        $Res_product = res_sorted($product, $product_propertiesV, $_GET);        
-             
-        include("pages/sample_page.php");
-    };   
+    if(isset($_GET["sorted"])) {
+        $Res_product = res_sorted($product, $product_properties, $product_propertiesV, $_POST);
+    };  
+
     include("pages/sample_page.php");
 ?>
