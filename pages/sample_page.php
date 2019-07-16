@@ -72,23 +72,7 @@
 
     <!-- переключатель страниц (поискать на GB его реализацию) количество страниц берётся из index.php  -->
 
-    <!-- 
-    <div class="basket"> 
-        <a href="index.php">Каталог</a><br>
-        <?php /*$total_basket = 0;  $total_price = 0;
-            foreach($position_catalogue as $row) {
-            
-            $total_basket += $row["amount_product"];
-            $total_price += $row["price"] * $row["amount_product"];
-            } */  ?>
-        <span>Всего в корзине: </span><span id="in_total_basket"><?=$total_basket?></span><br>
-        <span>Общая стоимость: </span><span id="in_total_price"><?=$total_price?></span> 
-        <input type="button" onclick="clean_user_basket(); 
-            CLIENT_clean_user_basket(<?=$pop?>, 'tr_');" value="Очистить корзину">
-        <input type="button" onclick="sending_emeil();" value="Заказать">       
-    <div>
 
-     -->
 </body>
 <script src="./pages/js/engine.js"></script>
 </html>
