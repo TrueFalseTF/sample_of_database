@@ -49,7 +49,7 @@
 
     # по гету передаются свойства фильтра 
     # функционально формируется массив составляющий его    
-    $sorted_products = $product;
+    $Res_product = $product;
     if(isset($_GET["sorted"])) {
         $Res_product = res_sorted($product, $product_properties, $product_propertiesV, $_POST);
     };  

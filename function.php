@@ -241,24 +241,35 @@
 
     function res_sorted($arr_products, $arr_product_properties, $arr_product_propertiesV, $arr_POST) {
 
-        #Перебирает ключи и значения 
-
-        foreach ($arr_product_properties as $product_properties) {
-        
-            foreach ($arr_product_propertiesV as $propertieV) {
-                if ($arr_POST[$product_properties["name_properties"]] == $propertieV[$product_properties["name_properties"]]) {            
-                    $exist_product = TRUE;              
-                }
-                if(isset($exist_product) == FALSE ) {                
-                    foreach ($arr_products as $key => $product) {
-                        if($propertieV["id_product"] == $product["id"]) {
-                            unset($arr_products[$key]);
-                        }
-                    }
-                }
+        #исключает из анализа нефильтруемые значения        
+        $arr_length = count($arr_POST);
+        for ($i = 1; $i <= $arr_length; $i++){
+            $postString = substr($arr_POST[$i], 0, 16);
+            if("Выберите" == $postString) {
+                unset($arr_POST[$i]);
             }
         }
 
-        return $Res_product;
+        $Res_products;
+
+        foreach ($arr_product_propertiesV as $propertieV) { #Перичесление значений свойств
+            foreach ($arr_product_properties as $product_properties) { #перечисление наименований свойств
+                if ($product_properties["id"] == $propertieV["id_properties"]) { #сравнение наименования и значения
+                
+                    if (isset($arr_POST[$product_properties["id"]]) &&
+                        $arr_POST[$product_properties["id"]] != $propertieV["value"]) { #сравнение значения фильтра и значения свойства
+                        
+                        
+                        foreach ($arr_products as $key => $product) { #удаление при несовпадении
+                            if($propertieV["id_product"] == $product["id"]) {
+                                unset($arr_products[$key]);
+                            }
+                        }                        
+                    }
+                }
+            } 
+        }        
+
+        return $arr_products;
     };
 ?>

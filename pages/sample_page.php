@@ -16,12 +16,12 @@
                 function spanValue($length_product_properties) {
                     return (string)$span = 4 + $length_product_properties; }; ?>
             <th colspan=<?=$colsAmount?>>            
-                <form action="./index.php?sorted" method="post">        
+                <form action="./index.php?sorted" enctype="multipart/form-data" method="post">        
 
                     <!--  #цикл из свойств и значений -->
                     <p><input type="submit" value="Отфильтровать">
                         <?php foreach($product_properties as $properties): ?>                                                                          
-                            <select size="1" name=<?=$properties["name_properties"]?>>
+                            <select size="1" name=<?=$properties["id"]?>>
                                 <option>Выберите <?=$properties["name_properties"]?></option>
                                 <?php foreach($product_propertiesV_originalit  as $propertiesV_originalit): ?>                                    
                                     <?php if ($properties["id"] === $propertiesV_originalit["id_properties"]) :?>
@@ -45,7 +45,7 @@
         
 
         <!-- цикл ограничен допустимым количеством строк на странице -->
-        <?php $pop = 0; foreach($sorted_products as $row): ?>
+        <?php $pop = 0; foreach($Res_product as $row): ?>
             <tr id="tr_<?=$row["id"]?>">
                 <th><?=$row["id"]?></th>
 
