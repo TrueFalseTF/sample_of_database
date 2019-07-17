@@ -15,62 +15,73 @@
             <?php $colsAmount = spanValue($length_product_properties);
                 function spanValue($length_product_properties) {
                     return (string)$span = 4 + $length_product_properties; }; ?>
-            <th colspan=<?=$colsAmount?>>            
-                <form action="./index.php?sorted" enctype="multipart/form-data" method="post">        
-
+            <form id="sorted" action="./index.php?sorted" method="post">
+                <td colspan=<?=$colsAmount?>>            
+                
                     <!--  #цикл из свойств и значений -->
-                    <p><input type="submit" value="Отфильтровать">
-                        <?php foreach($product_properties as $properties): ?>                                                                          
-                            <select size="1" name=<?=$properties["id"]?>>
-                                <option>Выберите <?=$properties["name_properties"]?></option>
-                                <?php foreach($product_propertiesV_originalit  as $propertiesV_originalit): ?>                                    
-                                    <?php if ($properties["id"] === $propertiesV_originalit["id_properties"]) :?>
-                                        <?php if ( is_null($propertiesV_originalit["value"]) ) continue; ?>
-                                        <option value=<?=$propertiesV_originalit["value"]?>><?=$propertiesV_originalit["value"]?></option>
-                                    <?php endif; ?>
-                                <?php endforeach;?>
-                            </select>
-                        <?php endforeach;?>
-                    </p>
-                </form>
-            </th>           
-        </tr>
-        
+                    <?php foreach($product_properties as $properties): ?>                                                                          
+                        <select name=<?=$properties["id"]?>>
+                            <option >Не выбрано | <?=$properties["name_properties"]?></option>
+
+                            <?php foreach($product_propertiesV_originalit  as $propertiesV_originalit): ?>                                    
+                                <?php if ($properties["id"] === $propertiesV_originalit["id_properties"]) :?>
+                                    <?php if ( is_null($propertiesV_originalit["value"]) ) continue; ?>
+                                    <option value=<?=$propertiesV_originalit["value"]?>><?=$propertiesV_originalit["value"]?></option>
+                                <?php endif; ?>
+                            <?php endforeach;?>
+
+                        </select>                            
+                    <?php endforeach;?>
+                    <input type="submit" value="Отфильтровать">
+                </td>  
+            </form>                      
+        </tr>       
         
         
         <tr>
             <th>№</th><th>Продукт</th><th>Категория</th><th>Цена</th>
             <?php foreach($product_properties as $cols): ?><th><?=$cols["name_properties"]?></th><?php endforeach;?>
         </tr>
+
         
-
-        <!-- цикл ограничен допустимым количеством строк на странице -->
-        <?php $pop = 0; foreach($Res_product as $row): ?>
+        <?php foreach($Res_product as $row): ?>
             <tr id="tr_<?=$row["id"]?>">
-                <th><?=$row["id"]?></th>
+                <td><?=$row["id"]?></td>
 
-                <th><?=$row["name"]?></th>
+                <td><?=$row["name"]?></td>
 
-                <th><?=$row["category"]?></th>                
+                <td><?=$row["category"]?></td>                
 
-                <th><?=$row["price"]?></th>
+                <td><?=$row["price"]?></td>
 
                 <?php foreach($product_properties as $properties): ?>
                     <?php foreach($product_propertiesV as $propertiesV): ?>
                         <?php if ($row["id"] == $propertiesV["id_product"] && $properties["id"] == $propertiesV["id_properties"]): ?>
-                            <th><?=$propertiesV["value"]?></th>
+                            <td><?=$propertiesV["value"]?></td>
                         <?php endif; ?>                        
                     <?php endforeach;?>
                 <?php endforeach;?>
             </tr>
-        <?php /* 
-            if($row["id"] > $pop) {
-                $pop = $row["id"];
-            }  */          
-        endforeach;?>
+        <?php endforeach;?>
     </table>
-
-    <!-- переключатель страниц (поискать на GB его реализацию) количество страниц берётся из index.php  -->
+    <!-- переключатель страниц, № страницы по GET -->
+    
+    <form id="Page_sorted" action="./index.php" method="get">
+        <ul>
+            <li><input form="sorted Page_sorted" type="submit" name="Page_sorted" value="1"></li>
+            <li>. . .</li>
+            <?php if ($Pages_amount > 2): ?>
+                <?php for ($i = 2;$i < $Pages_amount;$i++ ): ?>                    
+                    <li><input type="submit" name="Page_sorted" value=<?='"'.$i.'"'?>></li>                  
+                <?php endfor; ?>
+            <?php endif;?>
+            <li>. . .</li>
+            <?php if ($Pages_amount > 1): ?>
+                <li><input type="submit" name="Page_sorted" value=<?='"'.$Pages_amount.'"'?>></li>
+            <?php endif;?>
+        </ul>  
+    
+    </form>
 
 
 </body>

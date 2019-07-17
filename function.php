@@ -244,8 +244,8 @@
         #исключает из анализа нефильтруемые значения        
         $arr_length = count($arr_POST);
         for ($i = 1; $i <= $arr_length; $i++){
-            $postString = substr($arr_POST[$i], 0, 16);
-            if("Выберите" == $postString) {
+            $postString = substr($arr_POST[$i], 0, 21);
+            if("Не выбрано |" == $postString) {
                 unset($arr_POST[$i]);
             }
         }

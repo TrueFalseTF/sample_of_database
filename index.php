@@ -14,9 +14,13 @@
     $length_product_properties = count($product_properties);
     $length_product = count($product);
 
-    $row_page = 3;
+
+    $row_Page = 3;
+    $nuber_Page = 1;
     
-    $pages_amount = $length_product / $row_page;
+    $Pages_amount = $length_product / $row_Page;
+    if(($length_product % $row_Page) != 0 )        
+        $Pages_amount = ceil($Pages_amount);
     /*
     $position_basket = position_generator($link, "users_basket");    
    
@@ -49,10 +53,24 @@
 
     # по гету передаются свойства фильтра 
     # функционально формируется массив составляющий его    
-    $Res_product = $product;
+    $sorted_product = $product;
     if(isset($_GET["sorted"])) {
-        $Res_product = res_sorted($product, $product_properties, $product_propertiesV, $_POST);
-    };  
+        $determined_selected = "";
+        
+        $sorted_product = res_sorted($product, $product_properties, $product_propertiesV, $_POST);
+    };
+    if(isset($_GET["Page_sorted"])) {
+        $determined_selected = "";
+        
+        $sorted_product = res_sorted($product, $product_properties, $product_propertiesV, $_POST);
+        $nuber_Page = $_GET["Page_sorted"];         
+    };
+
+    #сокращение по $nuber_Page 
+    $length_dell = $row_Page*($nuber_Page - 1);
+    
+    $Res_product = array_splice($sorted_product, 0, $length_dell); 
+    $Res_product = array_splice($sorted_product, 0, $row_Page);
 
     include("pages/sample_page.php");
 ?>

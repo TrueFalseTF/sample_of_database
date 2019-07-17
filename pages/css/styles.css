@@ -3,10 +3,11 @@ body {
 }
 
 .product_table {
-    width: 30%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
+    text-align: center;   
+    
 }
 
 caption {
@@ -31,4 +32,11 @@ caption {
 
 .h4 {
     text-align: center;
+}
+
+ul {
+    text-align: center;
+}
+li {
+    display: inline;
 }
