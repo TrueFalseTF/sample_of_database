@@ -61,6 +61,10 @@
     };
     if(isset($_GET["Page_sorted"])) {
         $determined_selected = "";
+
+        foreach ($product_properties as $properties) {
+            
+        }
         
         $sorted_product = res_sorted($product, $product_properties, $product_propertiesV, $_POST);
         $nuber_Page = $_GET["Page_sorted"];         
