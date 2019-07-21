@@ -239,16 +239,21 @@
             die(mysqli_error($link));
     };
 
-    function res_sorted($arr_products, $arr_product_properties, $arr_product_propertiesV, $arr_POST) {
-
-        #исключает из анализа нефильтруемые значения        
+    function exclusion_of_unsorted($arr_POST) {
         $arr_length = count($arr_POST);
         for ($i = 1; $i <= $arr_length; $i++){
-            $postString = substr($arr_POST[$i], 0, 21);
-            if("Не выбрано |" == $postString) {
-                unset($arr_POST[$i]);
+            if(isset($arr_POST[$i])) {
+                $postString = substr($arr_POST[$i], 0, 21);
+                if("Не выбрано |" == $postString) {
+                    unset($arr_POST[$i]);
+                }
             }
         }
+
+        return $arr_POST;
+    };
+
+    function res_sorted($arr_products, $arr_product_properties, $arr_product_propertiesV, $arr_POST) {       
 
         $Res_products;
 
